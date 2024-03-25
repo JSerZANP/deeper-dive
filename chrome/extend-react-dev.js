@@ -129,13 +129,13 @@ const deeperDiveLinks = {
       link: "https://jser.dev/2023-05-19-how-does-usetransition-work",
     },
   ],
-  "/reference/react/createPortal": [
+  "/reference/react-dom/createPortal": [
     {
       title: "How does React Portal work internally ?",
       link: "https://jser.dev/react/2022/09/24/how-does-react-portal-work",
     },
   ],
-  "/reference/react/hydrateRoot": [
+  "/reference/react-dom/client/hydrateRoot": [
     {
       title: "How basic hydration works internally in React?",
       link: "https://jser.dev/react/2023/03/17/how-does-hydration-work-in-react",
