@@ -4,7 +4,7 @@
   "description": "A chrome extension to enhance the React.dev with advanced topics",
   "version": "0.1",
   "action": {
-    "default_popup": "hello.html",
+    "default_popup": "popup.html",
     "default_icon": "scuba-diving-icon.png"
   },
   "content_scripts": [
