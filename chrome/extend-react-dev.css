@@ -1,0 +1,10 @@
+.ddi_link_icon {
+  font-size: 12px;
+  margin-left: 8px;
+  opacity: 0.4;
+}
+
+.ddi_link_icon img {
+  width: 16px;
+  height: 16px;
+}

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Deeper Dive",
+  "description": "A chrome extension to enhance the React.dev with advanced topics",
+  "version": "0.1",
+  "action": {
+    "default_popup": "hello.html",
+    "default_icon": "scuba-diving-icon.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["extend-react-dev.js"],
+      "css": ["extend-react-dev.css"],
+      "matches": ["https://react.dev/*"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["scuba-diving-icon.svg"],
+      "matches": ["https://react.dev/*"]
+    }
+  ]
+}
