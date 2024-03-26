@@ -38,6 +38,10 @@ const deeperDiveLinks = {
         "When do useEffect() callbacks get run? Before paint or after paint?",
       link: "https://jser.dev/2023-08-09-effects-run-paint/",
     },
+    {
+      title: "The lifecycle of effect hooks in React",
+      link: "https://jser.dev/react/2022/01/26/how-does-react-usedeferredvalue-work",
+    },
   ],
   "/reference/react/useId": [
     {
@@ -160,6 +164,18 @@ const deeperDiveLinks = {
     {
       title: "How does useOptimistic() work internally in React?",
       link: "https://jser.dev/2024-03-20-how-does-useoptimisticwork-internally-in-react/",
+    },
+  ],
+  "/reference/react/Component": [
+    {
+      title: "How does ErrorBoundary work internally?",
+      link: "https://jser.dev/2023-05-26-how-does-errorboundary-work/",
+    },
+  ],
+  "/learn/rendering-lists": [
+    {
+      title: "How does 'key' work internally in React",
+      link: "https://jser.dev/react/2022/02/08/the-diffing-algorithm-for-array-in-react",
     },
   ],
 };
