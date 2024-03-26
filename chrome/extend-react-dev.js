@@ -266,15 +266,19 @@ const observerOptions = {
 
 function logChanges(records) {
   // skip if addedNodes are only ddi_
-  for (const record of records) {
+  let shouldExtend = false;
+  outer: for (const record of records) {
     if (record.addedNodes) {
       for (const node of record.addedNodes) {
-        if (!node.className.startsWith("ddi_")) {
-          extendReactDev();
-          return;
+        if (!node.className?.startsWith("ddi_")) {
+          shouldExtend = true;
+          break outer;
         }
       }
     }
+  }
+  if (shouldExtend) {
+    extendReactDev();
   }
 }
 
