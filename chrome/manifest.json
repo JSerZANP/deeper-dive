@@ -11,13 +11,13 @@
     {
       "js": ["extend-react-dev.js"],
       "css": ["extend-react-dev.css"],
-      "matches": ["https://react.dev/*"]
+      "matches": ["https://*.react.dev/*"]
     }
   ],
   "web_accessible_resources": [
     {
       "resources": ["scuba-diving-icon.svg"],
-      "matches": ["https://react.dev/*"]
+      "matches": ["https://*.react.dev/*"]
     }
   ]
 }
