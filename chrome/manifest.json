@@ -7,6 +7,9 @@
     "default_popup": "popup.html",
     "default_icon": "scuba-diving-icon.png"
   },
+  "icons": {
+    "128": "scuba-diving-128x128.png"
+  },
   "content_scripts": [
     {
       "js": ["extend-react-dev.js"],

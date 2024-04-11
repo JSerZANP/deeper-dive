@@ -190,12 +190,13 @@ function extendReactDev() {
     if (navLink != null && navLink.querySelector(".ddi_link_icon") == null) {
       const diver = document.createElement("span");
       diver.className = "ddi_link_icon";
-      const img = document.createElement("img");
-      img.src = chrome.runtime.getURL("scuba-diving-icon.svg");
-      img.width = 16;
-      img.height = 16;
-      img.title = "Deeper Dive";
-      diver.append(img);
+      const diverSvg = getDiverSvg();
+      diverSvg.style.width = "16px";
+      diverSvg.style.height = "16px";
+      diverSvg.style.display = "inline-block";
+      diverSvg.style.fill = "currentColor";
+      diverSvg.title = "Deeper Dive";
+      diver.append(diverSvg);
 
       const link = navLink?.firstElementChild;
       if (link) {
