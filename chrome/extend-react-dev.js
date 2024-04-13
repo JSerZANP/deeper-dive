@@ -289,7 +289,7 @@ function transformTextToLinkNode(textNode, start, end, link) {
 function extendReactDev() {
   // apply annotation first.
   Object.keys(deeperDiveAnnotation).forEach((url) => {
-    if (location.href === url) {
+    if (location.origin + location.pathname === url) {
       const annotations = deeperDiveAnnotation[url];
       annotations.forEach((annotation) => {
         if (annotation.type === "link") {
