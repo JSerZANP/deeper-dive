@@ -193,6 +193,18 @@ const deeperDiveAnnotation = {
       link: "https://jser.dev/2023-08-09-effects-run-paint/",
     },
   ],
+  "https://react.dev/reference/react/useState": [
+    {
+      type: "link",
+      start: 35,
+      end: 120,
+      root: "#__next", // if root is null, then it is document.body
+      path: [3, 1, 0, 0, 1, 0, 0, 25, 1, 0],
+      nodeIndex: 6,
+      text: "in some cases React may still need to call your component before skipping the children",
+      link: "https://jser.dev/2023-06-19-how-does-usestate-work/#52-setstate-with-same-value-might-still-trigger-re-render",
+    },
+  ],
 };
 
 function generatePathToTargetNode(targetNode) {
@@ -223,7 +235,7 @@ function generatePathToTargetNode(targetNode) {
   path.reverse();
   return {
     root,
-    pathOfElement: path,
+    path,
     nodeIndex,
   };
 }
