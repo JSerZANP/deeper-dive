@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Deeper Dive",
   "description": "A chrome extension to enhance the React.dev with advanced topics",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "action": {
     "default_popup": "popup.html",
     "default_icon": "scuba-diving-icon.png"
