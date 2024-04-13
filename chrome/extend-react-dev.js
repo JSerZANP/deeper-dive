@@ -180,7 +180,139 @@ const deeperDiveLinks = {
   ],
 };
 
+const deeperDiveAnnotation = {
+  "https://react.dev/reference/react/useEffect": [
+    {
+      type: "link",
+      start: 74,
+      end: 82,
+      root: "#__next", // if root is null, then it is document.body
+      path: [3, 1, 0, 0, 1, 0, 0, 13, 4, 0],
+      nodeIndex: 0,
+      text: "generally",
+      link: "https://jser.dev/2023-08-09-effects-run-paint/",
+    },
+  ],
+};
+
+function generatePathToTargetNode(targetNode) {
+  const path = [];
+  let root = "body";
+
+  let currentNode = targetNode.parentElement;
+
+  const nodeIndex = Array.prototype.indexOf.call(
+    currentNode.childNodes,
+    targetNode
+  );
+
+  while (currentNode !== document.body) {
+    // if element has id, use it as root
+    if (currentNode.id) {
+      root = currentNode.id;
+      break;
+    }
+
+    const parent = currentNode.parentElement;
+    const siblings = parent.children;
+    const index = Array.prototype.indexOf.call(siblings, currentNode);
+    path.push(index);
+    currentNode = parent;
+  }
+
+  path.reverse();
+  return {
+    root,
+    pathOfElement: path,
+    nodeIndex,
+  };
+}
+
+function targetNodeFromPath({ root = "body", path, nodeIndex }) {
+  let currentNode = document.querySelector(root);
+
+  if (currentNode == null) {
+    return null;
+  }
+
+  try {
+    for (const index of path) {
+      currentNode = currentNode.children[index];
+    }
+    return currentNode.childNodes[nodeIndex];
+  } catch (e) {
+    return null;
+  }
+}
+
+function getTextFromTextNode(node, start, end) {
+  if (node.nodeType === 3) {
+    return node.textContent.slice(start, end + 1);
+  }
+  return "";
+}
+
+function transformTextToLinkNode(textNode, start, end, link) {
+  const before = getTextFromTextNode(textNode, 0, start - 1);
+  const after = getTextFromTextNode(
+    textNode,
+    end + 1,
+    textNode.textContent.length
+  );
+
+  const linkNode = document.createElement("a");
+  linkNode.href = link;
+  linkNode.target = "_blank";
+  linkNode.title = "Deeper Dive!";
+  linkNode.className =
+    "inline text-link dark:text-link-dark border-b border-link border-opacity-0 hover:border-opacity-100 duration-100 ease-in transition leading-normal";
+  linkNode.append(
+    document.createTextNode(textNode.textContent.slice(start, end + 1))
+  );
+
+  const diverSvg = getDiverSvg();
+  diverSvg.style.width = "14px";
+  diverSvg.style.height = "14px";
+  diverSvg.style.display = "inline-block";
+  diverSvg.style.fill = "currentColor";
+  diverSvg.style.margin = "0 4px";
+  linkNode.append(diverSvg);
+
+  const container = document.createElement("span");
+  container.append(before);
+  container.append(linkNode);
+  container.append(after);
+
+  textNode.parentNode.replaceChild(container, textNode);
+}
+
 function extendReactDev() {
+  // apply annotation first.
+  Object.keys(deeperDiveAnnotation).forEach((url) => {
+    if (location.href === url) {
+      const annotations = deeperDiveAnnotation[url];
+      annotations.forEach((annotation) => {
+        if (annotation.type === "link") {
+          const targetNode = targetNodeFromPath(annotation);
+          if (targetNode == null) {
+            return;
+          }
+          const text = getTextFromTextNode(
+            targetNode,
+            annotation.start,
+            annotation.end
+          );
+          if (text !== annotation.text) {
+            return;
+          }
+          const { start, end } = annotation;
+          transformTextToLinkNode(targetNode, start, end, annotation.link);
+        }
+      });
+    }
+  });
+
+  // add links to navigation and ToC section
   Object.keys(deeperDiveLinks).forEach((path) => {
     const navLink = document.querySelector(
       `nav[role="navigation"] a[href="${path}"]`
@@ -254,7 +386,6 @@ function extendReactDev() {
 
         li.append(ul);
         toc.append(li);
-        // }
       }
     }
   });
@@ -265,7 +396,7 @@ const observerOptions = {
   subtree: true,
 };
 
-function logChanges(records) {
+function onDOMChange(records) {
   // skip if addedNodes are only ddi_
   let shouldExtend = false;
   outer: for (const record of records) {
@@ -283,7 +414,6 @@ function logChanges(records) {
   }
 }
 
-const observer = new MutationObserver(logChanges);
-observer.observe(document.body, observerOptions);
-
 extendReactDev();
+const observer = new MutationObserver(onDOMChange);
+observer.observe(document.body, observerOptions);
