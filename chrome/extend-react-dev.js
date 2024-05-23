@@ -69,7 +69,7 @@ const deeperDiveLinks = {
   ],
   "/reference/react/useRef": [
     {
-      title: "How does useLayoutEffect() work internally?",
+      title: "How does useRef() work internally?",
       link: "https://jser.dev/react/2021/12/05/how-does-useRef-work",
     },
   ],
